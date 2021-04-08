@@ -30,16 +30,17 @@ The text files for the nine fanfictions are included in a subfolder in the fanfi
               
 ## Text Complexity  
 **complexityAnalyses:**   
-              A script that calculates Type-Token ratio, Hapax Richness, and Avg. Word Length. These analyses provide a glimpse at the lexical profile of a text. These methods were decided on after doing a literature review of text complexity measures used in linguistic analysis. Measures that were easily understood and could be computed in a distributed way were prioritized.  
-**fleschKincaid:**  
-              A script that calculates the Flesch-Kincaid (complexity) score for a tokenized RDD. 
+              A script that calculates Type-Token ratio, Hapax Richness, and Avg. Word Length. These analyses provide a glimpse at the lexical profile of a text. These methods were decided on after doing a literature review of text complexity measures used in linguistic analysis. Measures that were easily understood and could be computed in a distributed way were prioritized.    
+               
+**fleschKincaid:**    
+              A script that calculates the Flesch-Kincaid score for a tokenized RDD. The Flesch-Kincaid score is a commonly used measure of the complexity of a text; colloquially, it is the score used when calculating the "reading level" of a book (i.e., when someone says a book is at a "8th grade reading level" they are referring to it's Flesch-Kincaid score). 
               
 ## Language Functions
 
-**TFIDF_Code:**  
-              A script that calculates the TF - IDF (term frequency–inverse document frequency) of a tokenized RDD. TF - IDF is used to illustrate how important a word or set of words are to a text sample. 
+**TFIDF_Code:**    
+: A script that calculates the TF - IDF (term frequency–inverse document frequency) of a tokenized RDD. TF - IDF is used to illustrate how important a word or set of words are to a text sample.   
 
-**functionAnalyses:**  
+**functionAnalyses:**    
               A script that calculates the most common nouns, pronouns, and adjectives for a text sample from Sentencify. The nouns are used to identify common characters, places, and things discussed in the text and are analyzed along with the topic analyses. 
               
 **punctProportion:**  
