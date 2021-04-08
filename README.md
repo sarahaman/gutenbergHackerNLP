@@ -1,3 +1,5 @@
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com)
+
 # Analyzing Linguistic Differences in Text Data between Two Time Periods
 This project seeks to document how three corpi differ in four different core aspects of language. The three corpi are: 7 classic novels taken from Project Gutenberg (all published pre-1925), comments posted on the Hacker News website, and 9 FanFictions published on FanFiction.net. We posit that the linguistic profile of a text can be elucidated using these four features. These analyses provide a comprehensive look at the texts which allows us to both quantitatively and subjectively examine how some aspects of language have changed over time.   
 # Why Include Fanfiction Data?
