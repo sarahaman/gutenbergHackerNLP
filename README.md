@@ -17,37 +17,47 @@ The text files for the nine fanfictions are included in a subfolder in the fanfi
 **ImportTest:**  
               A script that imports text data in the form of a .txt file, cleans, and then transforms the data into a Spark RDD. Each major text type (blog, books, fanfics) has its own corresponding import / cleaning function. 
               
-**TokenizeTest:** 
+**TokenizeTest:**   
               A script that tokenizes the contents of an RDD output by ImportTest. Contains the function TokenizeThis, which is passed the spark context and a string argument specifying which source one would like returned (options: "Books", "Blogs", "Fanfics", "All").
               
-**tidyRoutine:** 
+**tidyRoutine:**     
               A script that cleans tokenized data and applies part of speech tagging and lemmatization. Contains the method TidyThis which is passed the tokenized dataframe and two string arguments specifying whether or not one would like the text to be lemmatized (options: "Yes", "No") or tagged with the parts of speech (options: "Yes", "No").          
                 
-**Sentencify:** 
+**Sentencify:**     
               A script that takes in text source RDDs (or lists of RDDs) and converts each into a DF wherein row corresponds to a list of tokens in each sentence with an identifier at index 0. 
-## FEATURE 1: Text Complexity
-complexityAnalyses:  
+              
+## Text Complexity  
+**complexityAnalyses:**   
               A script that calculates Type-Token ratio, Hapax Richness, and Avg. Word Length. These analyses provide a glimpse at the lexical profile of a text. These methods were decided on after doing a literature review of text complexity measures used in linguistic analysis. Measures that were easily understood and could be computed in a distributed way were prioritized.  
-fleschKincaid: 
+**fleschKincaid:**  
               A script that calculates the Flesch-Kincaid (complexity) score for a tokenized RDD. 
-## FEATURE 2: The Function of the Texts
-TFIDF_Code: 
+              
+## Language Functions
+
+**TFIDF_Code:**  
               A script that calculates the TF - IDF (term frequency–inverse document frequency) of a tokenized RDD. TF - IDF is used to illustrate how important a word or set of words are to a text sample. 
-functionAnalyses: 
+
+**functionAnalyses:**  
               A script that calculates the most common nouns, pronouns, and adjectives for a text sample from Sentencify. The nouns are used to identify common characters, places, and things discussed in the text and are analyzed along with the topic analyses. 
-punctProportion: 
+              
+**punctProportion:**  
               A script that calculates the proportion of punctuation for a tokenized RDD. 
-taggerFunction: 
+              
+**taggerFunction:**  
               A script that takes a dataframe of sentences (from Sentencify) and returns a dataframe with the POS tagged where each row corresponds to a token from a source. 
+
 ## Topic Analysis  
-LDA_Code: 
-              A script that applies LDA topic modeling on a dataframe of sentences(from Sentencify). Latent Dirichlet Allocation is a generative probabalistic model that assumes a topic is a mixture of sets of words and that each document is a set of topic probabilities. 
-ngrams: 
+
+**LDA_Code:**   
+              A script that applies LDA topic modeling on a dataframe of sentences(from Sentencify). Latent Dirichlet Allocation is a generative probabalistic model that assumes a topic is a mixture of sets of words and that each document is a set of topic probabilities.   
+
+**ngrams:**    
               A script that takes in a dataframe of sentences(from Sentencify) and calculates the most common bigrams and trigrams of word combinations within the dataframe. Ngrams are used to identify common short phrases in the texts, which elucidates “what” is being repeatedly mentioned in the text. Common trigrams (and ngrams > 2) were investigated but ultimately excluded from the analyses because the responses were noisy and did not provide any additional insights. 
 
 
 ## Sentiment Analysis 
-sentimentAnalysis: 
+
+**sentimentAnalysis:**   
               A script that takes in a dataframe of sentences (from Sentencify) and uses the VADER (Valence Aware Dictionary for Sentiment Reasoning) model to calculate the average polarity of the text sample. Studies have shown that VADER performs as well as human-raters at correctly identifying the underlying sentiment (positive, negative, neutral) of a text. 
  
 
