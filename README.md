@@ -1,4 +1,4 @@
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/reading-6th-grade-level.svg)](https://forthebadge.com)
 
 # Analyzing Linguistic Differences in Text Data between Two Time Periods
 This project seeks to document how three corpi differ in four different core aspects of language. The three corpi are: 7 classic novels taken from Project Gutenberg (all published pre-1925), comments posted on the Hacker News website, and 9 FanFictions published on FanFiction.net. We posit that the linguistic profile of a text can be elucidated using these four features. These analyses provide a comprehensive look at the texts which allows us to both quantitatively and subjectively examine how some aspects of language have changed over time.   
@@ -33,7 +33,7 @@ The text files for the nine fanfictions are included in a subfolder in the fanfi
               A script that calculates Type-Token ratio, Hapax Richness, and Avg. Word Length. These analyses provide a glimpse at the lexical profile of a text. These methods were decided on after doing a literature review of text complexity measures used in linguistic analysis. Measures that were easily understood and could be computed in a distributed way were prioritized.    
                
 **fleschKincaid:**    
-              A script that calculates the Flesch-Kincaid score for a tokenized RDD. The Flesch-Kincaid score is a commonly used measure of the complexity of a text; colloquially, it is the score used when calculating the "reading level" of a book (i.e., when someone says a book is at a "8th grade reading level" they are referring to it's Flesch-Kincaid score). 
+              A script that calculates the Flesch-Kincaid score for a tokenized RDD. The Flesch-Kincaid score is a commonly used measure of the complexity of a text; colloquially, it is the score used when calculating the "reading level" of a book (i.e., when someone says a book is at a "8th grade reading level" they are referring to it's Flesch-Kincaid score). See the "Reading Level: 6th grade" badge included for fun at the top of this README for an example of the Flesch-Kincaid score in action. 
               
 ## Language Functions
 
