@@ -8,17 +8,22 @@ We chose fanfiction specifically because these are publicly available modern exa
 The text files for the nine fanfictions are included in a subfolder in the fanfiction folder. 
 # Modules 
 ## Data Ingestion/Cleaning 
-initSession: 
-              A script that initializes a spark session and context to establish a connection to the Apache Spark webserver.               
-FicScraper: 
+**initSession:**   
+        A script that initializes a spark session and context to establish a connection to the Apache Spark webserver.   
+        
+**FicScraper:** 
               A web scraper that scrapes and cleans fanfiction text data from fanfictions on fanfiction.net. The script writes the aforementioned text data into a local .txt file. 
-ImportTest: 
+              
+**ImportTest:**  
               A script that imports text data in the form of a .txt file, cleans, and then transforms the data into a Spark RDD. Each major text type (blog, books, fanfics) has its own corresponding import / cleaning function. 
-TokenizeTest: 
-              A script that tokenizes the contents of an RDD output by ImportTest. 
-tidyRoutine: 
-              A script that cleans tokenized data and applies part of speech tagging and lemmatization.         
-Sentencify: 
+              
+**TokenizeTest:** 
+              A script that tokenizes the contents of an RDD output by ImportTest. Contains the function TokenizeThis, which is passed the spark context and a string argument specifying which source one would like returned (options: "Books", "Blogs", "Fanfics", "All").
+              
+**tidyRoutine:** 
+              A script that cleans tokenized data and applies part of speech tagging and lemmatization. Contains the method TidyThis which is passed the tokenized dataframe and two string arguments specifying whether or not one would like the text to be lemmatized (options: "Yes", "No") or tagged with the parts of speech (options: "Yes", "No").          
+                
+**Sentencify:** 
               A script that takes in text source RDDs (or lists of RDDs) and converts each into a DF wherein row corresponds to a list of tokens in each sentence with an identifier at index 0. 
 ## FEATURE 1: Text Complexity
 complexityAnalyses:  
