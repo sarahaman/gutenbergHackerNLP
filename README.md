@@ -38,7 +38,7 @@ The text files for the nine fanfictions are included in a subfolder in the fanfi
 ## Language Functions
 
 **TFIDF_Code:**    
-:A script that calculates the TF - IDF (term frequency–inverse document frequency) of a tokenized RDD. TF - IDF is used to illustrate how important a word or set of words are to a text sample.   
+A script that calculates the TF - IDF (term frequency–inverse document frequency) of a tokenized RDD. TF - IDF is used to illustrate how important a word or set of words are to a text sample.   
 
 **functionAnalyses:**    
               A script that calculates the most common nouns, pronouns, and adjectives for a text sample from Sentencify. The nouns are used to identify common characters, places, and things discussed in the text and are analyzed along with the topic analyses. 
