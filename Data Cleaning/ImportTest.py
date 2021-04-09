@@ -1,3 +1,12 @@
+################################
+## EARLY DATA PRE-PROCESSING  ##
+################################
+
+
+##################
+##    SET UP    ##
+##################
+
 import pyspark
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
@@ -5,6 +14,10 @@ import pandas as pd
 import pyspark.sql.functions as f
 import os
 import re
+
+#####################################
+## METHODS FOR GETTING CLEAN RDDS  ##
+#####################################
 
 def get_books(sc):
    '''
@@ -19,18 +32,8 @@ def get_books(sc):
    bookRDDs = []
    for book in books:
        bookRDDs.append(sc.textFile("".join(['/spring2021/project1/comparison/',book])))
-
-      # bookRDDs[-1] = bookRDDs[-1].filter(lambda x: x > 1)
-
+   
    return bookRDDs
-  # row = Row("text")
-  # bookLists = []
-  # for book in bookRDDs:
-  #    book_list = book.flatMap(row).collect()
-  #    booktext = "".join(book_list)
-  #    bookLists.append(booktext)
-  # booksDF = sc.parallelize(bookLists).map(row).toDF(["text"])
-  # return booksDF
 
 def get_blogs(sc):
    '''
@@ -39,7 +42,6 @@ def get_blogs(sc):
    Returns: rdd
         cleaned spark rdd of the hacker_news_sample.csv and the blogtext.csv
    '''
-
    spark = SparkSession.builder.getOrCreate()
    newstextDF = spark.read.csv("/spring2021/project1/hacker_news_sample.csv", inferSchema = True, header = True).dropna(subset=['text'])
    blogtextDF = spark.read.csv("/spring2021/project1/blogtext.csv", inferSchema = True, header = True).dropna(subset=['text'])
@@ -63,8 +65,12 @@ def get_blogs(sc):
    return web_rdd
 
 def get_fics(sc):
-    '''
-    '''
+   '''
+   Arguments: sc
+        pyspark spark context object
+   Returns: rdd
+        cleaned spark rdd of the fanfic data
+   '''
     fanficRDDs = []
     fanfics =  os.listdir('/spring2021/project1/gemini/fanficComparison/')
 
