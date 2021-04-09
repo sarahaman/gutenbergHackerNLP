@@ -57,24 +57,24 @@ pos_tagged = getPOS(sentenceData)
 # Nouns
 nouns = pos_tagged.filter((f.col("POS") == "NN") | (f.col("POS") == "NNS"))
 nounsCounted = nouns.groupby("Token").count()
-nounsCounted = nounsCounted.withColumn("Prop", (f.col("count")/4585387))
+nounsCounted = nounsCounted.withColumn("Prop", (f.col("count")/20509497))
 nounsCounted.orderBy(f.col("count").desc()).show(10)
 
 # Pronouns
 pronouns = pos_tagged.filter((f.col("POS") == "PRP") | (f.col("POS") == "PRP$"))
 pronounsCounted = pronouns.groupby("Token").count()
-pronounsCounted = pronounsCounted.withColumn("Prop", (f.col("count")/4585387))
+pronounsCounted = pronounsCounted.withColumn("Prop", (f.col("count")/10230782))
 pronounsCounted.orderBy(f.col("count").desc()).show(10)
 
 # Adjectives
 adjectives = pos_tagged.filter((f.col("POS") == "JJ") | (f.col("POS") == "JJR") | (f.col("POS") == "JJS"))
 adjectivesCounted = adjectives.groupby("Token").count()
-adjectivesCounted = adjectivesCounted.withColumn("Prop", (f.col("count")/4585387))
+adjectivesCounted = adjectivesCounted.withColumn("Prop", (f.col("count")/10230782))
 adjectivesCounted.orderBy(f.col("count").desc()).show(10)
 
 # Total Proportions
 totalPOS = pos_tagged.groupBy("POS").count()
-totalPOS = totalPOS.withColumn("prop", (f.col("count")/4585387)).orderBy(f.col("count").desc())
+totalPOS = totalPOS.withColumn("prop", (f.col("count")/10230782)).orderBy(f.col("count").desc())
 
 #################
 #### Fanfics ####
