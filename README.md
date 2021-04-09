@@ -61,8 +61,8 @@ Throughout our analyses, we reference the corpi by the terms:
 
 ## Topic Analysis  
 
-**LDA_Code:**   
-              A script that applies LDA topic modeling on a dataframe of sentences(from Sentencify). Latent Dirichlet Allocation is a generative probabalistic model that assumes a topic is a mixture of sets of words and that each document is a set of topic probabilities.   
+**LDA_Code:**  
+              A script that applies LDA topic modeling on a dataframe of sentences(from Sentencify). Latent Dirichlet Allocation is a generative probabalistic model that assumes a topic is a mixture of sets of words and that each document is a set of topic probabilities. This analysis will not appear in the final document due to technical limitations encountered and general difficulties of optimizing hyperparameters, which is outside the scope of this project.   
 
 **ngrams:**    
               A script that takes in a dataframe of sentences(from Sentencify) and calculates the most common bigrams and trigrams of word combinations within the dataframe. Ngrams are used to identify common short phrases in the texts, which elucidates “what” is being repeatedly mentioned in the text. Common trigrams (and ngrams > 2) were investigated but ultimately excluded from the analyses because the responses were noisy and did not provide any additional insights. 
