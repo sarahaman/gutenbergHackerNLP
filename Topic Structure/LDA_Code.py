@@ -9,12 +9,14 @@ import nltk
 import os
 
 '''
+*Not to be included in final Analysis*
+
 Original Plan:
     LDA topic modeling is challenging because tuning the model with respect to perplexity can lead to a better discriminant model.
-    The ultimate consequence of this is that the model that shows the greatest semantic similatir is not the most effective at predicting topic distibution.
+    The ultimate consequence of this is that the model that shows the greatest semantic similarity (i.e. the most human-interpretable) is not the most effective at predicting topic distibution.
 
 Known Issues:
-    Gutenberg Books contain common bumper language that will show up in a CountVectorizer model because it's finding the common phrases. It's important that we understand
+    This takes a very long time and often runs out of memory as a result of processing blog data in line 47
 '''
 
 def LDAThis(sc, RDD, minFreq,  numTopics, maxIter, wordsPerTopic):
