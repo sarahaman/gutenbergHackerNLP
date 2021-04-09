@@ -46,7 +46,7 @@ oneWord.groupBy("Source").agg(count("Count").alias("Hapax")).show()
 '''Average word length represents the average length of words in the document.'''
 
 from fleschKincaid import item_length
-avgWL = tidiedData.select("Source", "Lemma", item_length("Stem").alias("Len"))
+avgWL = tidiedData.select("Source", "Lemma", item_length("Lemma").alias("Len"))
 avgWL = avgWL.withColumn("Len", avgWL.Len.cast('int'))
 avgWL2 = avgWL.groupBy("Source").agg(sum("Len").alias("GroupLen"), count("Lemma").alias("Total"))
 avgWL2.withColumn("Average Word Length", (avgWL2["GroupLen"]/avgWL2["Total"])).show(3)
