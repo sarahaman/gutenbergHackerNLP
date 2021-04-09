@@ -73,4 +73,4 @@ Throughout our analyses, we reference the corpi by the terms:
 **sentimentAnalysis:**   
               A script that takes in a dataframe of sentences (from Sentencify) and uses the VADER (Valence Aware Dictionary for Sentiment Reasoning) model to calculate the average polarity of the text sample. Studies have shown that VADER performs as well as human-raters at correctly identifying the underlying sentiment (positive, negative, neutral) of a text. 
  
- ![alt text](https://thumbs.dreamstime.com/t/books-many-different-colors-horizontal-line-39159446.jpg)
+ <center><img src="https://thumbs.dreamstime.com/t/books-many-different-colors-horizontal-line-39159446.jpg" alt="books" width="200"/></center>
