@@ -17,7 +17,7 @@ fdfCount = fdf.groupBy("Source", "Token").count()
 
 ### BOOKS ###
 fdfCount.filter(f.col("Source") == "Books").agg(f.sum("count")).show(1)
-fdfCount.filter(f.col("Source") == "Books").withColumn("prop", (f.col("count")/24129)).orderBy(f.col("count").desc()).show(3)
+fdfCount.filter(f.col("Source") == "Books").withColumn("prop", (f.col("count")/42235)).orderBy(f.col("count").desc()).show(3)
 
 ### BLOGS ###
 fdfCount.filter(f.col("Source") == "Blogs").agg(f.sum("count")).show(1)
