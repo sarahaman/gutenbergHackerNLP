@@ -7,10 +7,8 @@ from pyspark.sql.functions import udf, col
 
 d = cmudict.dict()
 
-
 tokenizedData = TokenizeThis(sc, "All")
 tidiedData = TidyThis(tokenizedData, "No", "No")
-
 
 def nysl(word):
         try:
