@@ -57,7 +57,7 @@ pos_tagged = getPOS(sentenceData)
 # Nouns
 nouns = pos_tagged.filter((f.col("POS") == "NN") | (f.col("POS") == "NNS"))
 nounsCounted = nouns.groupby("Token").count()
-nounsCounted = nounsCounted.withColumn("Prop", (f.col("count")/20509497))
+nounsCounted = nounsCounted.withColumn("Prop", (f.col("count")/10230782))
 nounsCounted.orderBy(f.col("count").desc()).show(10)
 
 # Pronouns
