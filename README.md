@@ -1,7 +1,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/powered-by-coffee.svg)](https://forthebadge.com)
 
 # Analyzing Linguistic Differences in Text Data between Two Time Periods
-This project seeks to document how three corpi differ in four different core aspects of language. The three corpi are: 7 classic novels taken from Project Gutenberg (all published pre-1925), modern internet writing (from a variety of blogs and from comments on the Hacker News website), and 9 FanFictions published on FanFiction.net. We posit that the linguistic profile of a text can be elucidated using these four features. These analyses provide a comprehensive look at the texts which allows us to both quantitatively and subjectively examine how some aspects of language have changed over time.
+This project seeks to document how three corpora differ in four different core aspects of language. The three corpora are: 7 classic novels taken from Project Gutenberg (all published pre-1925), modern internet writing (from a variety of blogs and from comments on the Hacker News website), and 9 FanFictions published on FanFiction.net. We posit that the linguistic profile of a text can be elucidated using these four features. These analyses provide a comprehensive look at the texts which allows us to both quantitatively and subjectively examine how some aspects of language have changed over time.
 
 # Why Include Fanfiction Data?
 The initial goal of this project was to investigate how sentence structure, word complexity, and topics have evolved from classic prose to modern internet writing. However, these texts differ not only in their age but in medium. The Project Gutenberg documents are all examples of narrative fiction whereas the Hacker News comments and blogs are an example of short-form colloquial writing (presuming no one is writing a novel length blog). As such, the medium becomes a potential confounding variable and obscures our ability to decipher whether differences in the texts are due to changes in language over time or simply because of differences in the medium. For this reason, we chose to control for the medium by adding a third source: text from fanfiction. 
@@ -12,7 +12,7 @@ The text files for the nine fanfictions are included in a subfolder in the fanfi
 
 # Terminology
 
-Throughout our analyses, we reference the corpi by the terms: 
+Throughout our analyses, we reference the corpora by the terms: 
 
 1. **Books:** Which encompasses the text from all of the 7 Project Gutenberg books
 2. **Blogs:** Which encompasses all of the modern text; both Hacker News and the blogs (despite the name)
