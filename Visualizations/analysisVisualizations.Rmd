@@ -1,0 +1,467 @@
+---
+title: "Visualizatons"
+author: "Julian Palazzo, Kalani Stanton, and Sara Haman"
+date: "4/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(knitr)
+library(tidyverse)
+library(kableExtra)
+```
+
+
+# Punctuation
+
+## Most Common Punctuation Dataframes
+
+```{r}
+require(knitr)
+# Blogs
+Source <- rep("Blog", 3)
+Token <- c(".", "!", "?")
+Count <- c(238127, 9645, 8492)
+blogsDF <- data.frame(Source, Token, Count)
+blogsDF["Prop (%)"] <- round(blogsDF$Count/sum(Count)*100,2)
+
+blog.punc.table <- kable(blogsDF)
+blog.punc.table
+
+# Books
+Source <- rep("Book", 3)
+Token <- c(".", "!", "?")
+Count <- c(33587, 4673, 3975)
+booksDF <- data.frame(Source, Token, Count)
+booksDF["Prop (%)"] <- round(booksDF$Count/sum(Count)*100,2)
+booksDF
+
+book.punc.table <- kable(booksDF)
+book.punc.table
+
+# Fanfic
+Source <- rep("FanFic", 3)
+Token <- c(".", "!", "?")
+Count <- c(19934, 1234, 2961)
+fanficDF <- data.frame(Source, Token, Count)
+fanficDF["Prop (%)"] <- round(fanficDF$Count/sum(Count)*100,2)
+fanficDF
+fanfic.punc.table <- kable(fanficDF)
+fanfic.punc.table
+```
+## Visualization
+
+```{r}
+allPuncDF <- rbind(blogsDF, booksDF, fanficDF)
+
+ggplot(allPuncDF, aes(x = Token, y = `Prop (%)`/100, fill = Source)) +
+  geom_bar(stat = 'identity', color = 'black', position = 'dodge') + 
+  geom_text(aes(label = paste0(`Prop (%)`, "%")), colour = "black", vjust = -.5, hjust = .45, position = position_dodge(width = 1), size = 3) +
+  scale_fill_manual(values=c('#ec9d82', '#bed7de', '#557b83')) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  labs(title = "End Punctuation across Corpora", 
+       subtitle = "Function Analyses",
+       x = "Punctuation Mark", 
+       y = "Percent") + 
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3)
+  )
+  
+```
+
+
+
+# Proportion of each POS
+
+```{r}
+require(kable)
+
+# Blogs
+Source <- rep("Blogs", 10)
+POS <- c("NN", "IN", "DT", "JJ", "RB", "PRP", "VBD", "NNS", "CC", "VB")
+Count <- c(822204, 513160, 440004, 381310, 207749, 294433, 235796, 255170, 177090, 169480)
+prop <- c(0.1793, 0.1119, 0.096, 0.0831, 0.0671, 0.0642, 0.0556, 0.0514, 0.0386, 0.0367)
+blogDF <- data.frame(Source, POS, Count, prop)
+blogDF
+
+blog.POS.table <- kable(blogDF)
+blog.POS.table
+
+
+# Books
+Source <- rep("Book", 10)
+POS <- c("NN", "IN", "DT", "JJ", "RB", "PRP", "VBD", "NNS", "CC", "VB")
+Count <- c(157249, 105721, 84780, 62095, 49163, 47390, 46074, 35231, 34476, 32031)
+prop <- c(0.1929, 0.1297, 0.1040, 0.0762, 0.0603, 0.0582, 0.0565, 0.0432, 0.0423, 0.0393)
+bookDF <- data.frame(Source, POS, Count, prop)
+bookDF["Prop (%)"] <- 
+bookDF
+
+book.POS.table <- kable(bookDF)
+book.POS.table
+
+
+#FanFic
+Source <- rep("FanFic", 10)
+POS <- c("NN", "IN", "DT", "PRP", "VBD", "RB", "JJ", "VB", "NNS", "CC")
+Count <- c(65918, 40831, 38266, 32734, 32577, 26889, 21911, 20355, 13896, 13513)
+prop <- c(0.1644, 0.1018, 0.09542, 0.0816, 0.067, 0.054, 0.051, 0.0346, 0.0344, 0.0337)
+fanficDF <- data.frame(Source, POS, Count, prop)
+fanficDF$POS <- as_factor(fanficDF$POS)
+fanficDF
+
+fanfic.POS.table <- kable(fanficDF)
+fanfic.POS.table
+
+```
+
+## Visualizations 
+
+```{r}
+
+ggplot(blogDF, aes(x = prop, y = fct_reorder(POS, prop, .desc = FALSE), fill = Source)) + 
+  geom_bar(stat="Identity", color='black') + 
+  geom_text(aes(label = paste0(prop*100, '%')), vjust = 0.75, hjust = 1.1, colour = "black") +
+  scale_fill_manual(values=c('#ec9d82')) + 
+  labs(title = "10 Most Common POS", 
+       subtitle = "Blogs and Hacker News",
+       x = "Percent of all POS", 
+       y = " ") +  
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3), 
+        legend.position = 'None'
+  )
+
+```
+
+
+```{r}
+
+ggplot(bookDF, aes(x = prop, y = fct_reorder(POS, prop, .desc = FALSE), fill = Source)) + 
+  geom_bar(stat="Identity", color='black') + 
+  geom_text(aes(label = paste0(prop*100, '%')), vjust = 0.75, hjust = 1.1, colour = "white") +
+  scale_fill_manual(values=c('#557b83')) + 
+  labs(title = "10 Most Common POS", 
+       subtitle = "Books",
+       x = "Percent of all POS", 
+       y = " ") +  
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3), 
+        legend.position = 'None'
+  )
+
+```
+
+
+
+```{r}
+
+ggplot(fanficDF, aes(x = prop, y = fct_reorder(POS, prop, .desc = FALSE), fill = Source)) + 
+  geom_bar(stat="Identity", color='black') + 
+  geom_text(aes(label = paste0(prop*100, '%')), vjust = 0.75, hjust = 1.1, colour = "black") +
+  scale_fill_manual(values=c('#bed7de')) + 
+  labs(title = "10 Most Common POS", 
+       subtitle = "Fanfics",
+       x = "Percent of all POS", 
+       y = " ") +  
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3), 
+        legend.position = 'None'
+  )
+
+```
+
+
+
+# SENTIMENT
+
+```{r}
+Sentiment <- c("Negative", "Neutral", "Positive", "Compound")
+
+# Blogs
+Source <- rep("Blogs",4)
+Score <- c(0.05975761631350528, 0.8085552117018588, 0.12152698847600618, 0.1069500496707785)
+blogDF <-  data.frame(Source, Sentiment, Score)
+blogDF
+#sum(blogDF[1,])
+
+blog.sent.table <- kable(blogDF)
+blog.sent.table
+
+
+
+
+# Books
+Source = rep("Books", 4)
+Score <- c(0.0645935979840452,0.8465882884440475,0.08560899966657011, 0.031192949579883444)
+booksDF <- data.frame(Source, Sentiment, Score)
+booksDF
+#sum(booksDF[1,])
+book.sent.table <- kable(booksDF)
+book.sent.table
+
+
+
+
+# FanFic
+Source = rep("Fanfics", 4)
+Score <- c(0.06586961639687292, 0.8326771564359163, 0.10062954132874923, 0.07269253392486019)
+fanficDF <- data.frame(Source, Sentiment, Score)
+fanficDF
+#sum(fanficDF[1,])
+fanfic.sent.table <- kable(fanficDF)
+fanfic.sent.table
+
+
+allSentimentDF <- rbind(blogDF, booksDF, fanficDF)
+
+allSentimentDF %>% pivot_wider(names_from = "Sentiment", values_from = "Score") #%>% kableExtra()
+```
+
+## Visualizations 
+
+```{r}
+
+
+allSentimentDF %>% filter(Sentiment != "Compound") %>% 
+  ggplot(aes(x = Sentiment , y = Score, fill = Source)) + 
+  geom_bar(stat = 'identity', color = 'black', position = 'dodge') + 
+  geom_text(aes(label = paste0(round(Score,2)*100, "%")), colour = "black", vjust = -.5, hjust = .45, position = position_dodge(width = 1), size = 3) +
+  scale_fill_manual(values=c('#ec9d82', '#bed7de', '#557b83')) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  labs(title = "Polarity Across Documents", 
+       subtitle = "Sentiment Analysis",
+       x = "Count", 
+       y = " ") + 
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3)
+  )
+```
+
+
+```{r}
+allSentimentDF %>% filter(Sentiment == "Compound") %>% 
+  ggplot(aes(x = Source, y = Score, fill = Source)) + 
+  geom_bar(color = 'black', stat = "identity") + 
+  geom_text(aes(label = paste0(round(Score, 2)*100)), vjust = -.5, hjust = .5, colour = "black") +
+  scale_fill_manual(values=c('lavender', 'lightgoldenrod1', 'blue')) + 
+  labs(title = "Blogs (Most common bigrams)", 
+       subtitle = " ",
+       x = "Count", 
+       y = " ")
+
+
+
+allSentimentDF %>% 
+  filter(Sentiment == "Compound") %>% 
+  mutate(Source = as.factor(Source)) %>%
+  mutate(Source = fct_reorder(Source, desc(Score))) %>%
+  ggplot(aes(x = Sentiment , y = Score, fill = Source)) + 
+  geom_bar(stat = 'identity', color = 'black', position = 'dodge') + 
+  geom_text(aes(label = paste0(round(Score,2)*100, "%")), colour = "black", vjust = -.5, hjust = .45, position = position_dodge(width = 1), size = 3) +
+  scale_fill_manual(values=c('#ec9d82', '#bed7de', '#557b83')) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) + 
+  labs(title = "Polarity Across Documents", 
+       subtitle = "Sentiment Analysis",
+       x = "Count", 
+       y = " ") + 
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3)
+  )
+
+
+```
+
+# COMPLEXITY ANALYSES 
+
+```{r}
+## Average word length
+Source <- c("Fanfic", "Books", "Blogs")
+Average_Word_Length <- c(5.637, 6.00, 5.34)
+avgWL_scores <- data.frame(Source, Average_Word_Length)
+
+## Flesch-Kincaid
+Source <- c("Fanfic", "Books", "Blogs")
+Average_Sentence_Length <- c(15.716, 8.278, 15.850)
+Flesch_Kincaid <- c(10.037, 8.839, 10.841)
+FK_scores <- data.frame(Source, Flesch_Kincaid)
+
+# Type-Token Ratio
+Source <- c("Fanfic", "Books", "Blogs")
+Type_Token_ratio <- c(0.0997, 0.0756, 0.0123)
+TTR_scores <- data.frame(Source, Type_Token_ratio)
+
+# Hapax Richness
+Source <- c("Fanfic", "Books", "Blogs")
+Hapax_Richness <- c(10373/401037, 13205/814952, 365508/10230782)
+Hapax_scores <- data.frame(Source, Hapax_Richness)
+
+```
+
+## Visualizations
+
+```{r}
+
+avgWL_scores %>%
+  kable("html") %>%
+  kable_styling(font_size = 20) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(2, color = c('black', 'green', 'black')) 
+
+FK_scores %>%
+  kable("html") %>%
+  kable_styling(font_size = 20) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(2, color = c('black', 'black', 'green')) 
+
+TTR_scores %>%
+  kable("html") %>%
+  kable_styling(font_size = 20) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(2, color = c('green', 'black', 'black')) 
+
+Hapax_scores %>%
+  kable("html") %>%
+  kable_styling(font_size = 20) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(2, color = c('black', 'black', 'green')) 
+
+
+```
+
+# MOST COMMON BIGRAMS
+
+```{r}
+
+# Bigrams
+
+Source <- c("Books", "Books", "Books", "Books", "Books", "Books", "Books", "Books", "Books", "Books", "Blogs", "Blogs", "Blogs", "Blogs", "Blogs", "Blogs", "Blogs", "Blogs", "Blogs", "Blogs", "Fanfics", "Fanfics", "Fanfics", "Fanfics", "Fanfics", "Fanfics", "Fanfics", "Fanfics", "Fanfics", "Fanfics")
+Bigrams <- c("sperm whale", "old man", "hester prynne", "madame defarge", "said holmes", "lady catherine", "sherlock holmes", "white whale", "scarlet letter", "let us", "last night", "gon na", "feel like", "wan na", "oh well", "first time", "even though", "doom doom", "got ta", "would like", "dr. dover", "could see", "shook head", "king edmund", "high king", "valyrian steel", "said harry", "queen lucy", "queen susan", "eddard stark")
+Count <- c(160, 148, 138, 108, 108, 103, 96, 94, 91, 87, 430, 363, 243, 184, 147, 147, 143, 142, 137, 130, 179, 136, 109, 100, 88, 82, 79, 68, 65, 62)
+most_common_bigrams <- data.frame(Source, Bigrams, Count)
+most_common_bigrams$Bigrams <- factor(most_common_bigrams$Bigrams)
+
+```
+
+
+## Visualizations
+
+```{r}
+# MCB <- most_common_bigrams %>%
+#   mutate(Source = as_factor(Source))%>%
+#   mutate(Bigrams = as_factor(Bigrams))%>%
+#   mutate(Count = as_factor(Count))
+
+
+blogMCB <- most_common_bigrams %>%
+  filter(Source == "Blogs")
+
+ggplot(blogMCB, aes(x = Count, y = fct_reorder(Bigrams, Count, .desc = FALSE), fill = Source)) + 
+  geom_bar(stat="Identity", color='black') + 
+  geom_text(aes(label = paste0(Count)), vjust = 0.75, hjust = 1.1, colour = "black") +
+  scale_fill_manual(values=c('#ec9d82')) + 
+  labs(title = "10 Most Common Bigrams", 
+       subtitle = "Blogs",
+       x = "Count", 
+       y = " ") +  
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3), 
+        legend.position = 'None'
+  )
+```
+
+
+
+```{r}
+
+bookMCB <- most_common_bigrams %>%
+  filter(Source == "Books")
+
+
+ggplot(bookMCB, aes(x = Count, y = fct_reorder(Bigrams, Count, .desc = FALSE), fill = Source)) + 
+  geom_bar(stat="Identity", color='black') + 
+  geom_text(aes(label = paste0(Count)), vjust = 0.75, hjust = 1.1, colour = "white") +
+  scale_fill_manual(values=c('#557b83')) + 
+  labs(title = "10 Most Common Bigrams", 
+       subtitle = "Books",
+       x = "Count", 
+       y = " ") +  
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3), 
+        legend.position = 'None'
+  )
+
+```
+
+
+
+```{r}
+fanficsMCB <- most_common_bigrams %>%
+  filter(Source == "Fanfics")
+
+ggplot(fanficsMCB, aes(x = Count, y = fct_reorder(Bigrams, Count, .desc = FALSE), fill = Source)) + 
+  geom_bar(stat="Identity", color='black') + 
+  geom_text(aes(label = paste0(Count)), vjust = 0.75, hjust = 1.1, colour = "black") +
+  scale_fill_manual(values=c('#bed7de')) + 
+  labs(title = "10 Most Common Bigrams", 
+       subtitle = "Fanfics",
+       x = "Count", 
+       y = " ") +  
+  theme(plot.title = element_text(size=15, hjust = 0.5, vjust = 1), 
+        text=element_text(size=12,  family="serif"), 
+        axis.title.y = element_text(vjust=2), 
+        axis.title.x = element_text(vjust=-.5), 
+        plot.subtitle = element_text(hjust = 0.5, vjust = 3), 
+        legend.position = 'None'
+  )
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

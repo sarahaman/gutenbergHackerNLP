@@ -1,0 +1,210 @@
+---
+title: "Wordclouds"
+author: "Kalani Stanton, Adam Lashley, and Sara Haman"
+date: "4/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Pronouns
+
+### Books
+
+```{r}
+TextSource <- rep("Books", 10)
+
+PNTokens <- c("i", "it", "his", "he", "you","her","my","him","she","me")
+
+count <-c(13797,10106,8881,8594,6850,5708,5258,4036,3844,3638)
+
+Prop <- c(0.01692,0.01240,0.01090, 0.01055,0.00841,0.00700,0.00645,0.00495,0.00472,0.00446)
+
+Books_PNTokens = data.frame(TextSource, PNTokens,count, Prop)
+```
+
+```{r}
+TextSource <- rep("Blogs", 10)
+
+PNTokens <- c("i","it","my","you","me","we","he","they","she","her")
+
+count <- c(3977171, 1472774, 106348, 902596, 652809, 556090, 441333, 365440, 271830, 245013)
+
+Prop <- c(0.38875,0.14396,0.10394,0.08822,0.06381,0.05435,0.04314,0.03572,0.02657,0.02395)
+
+Blogs_PNTokens = data.frame(TextSource, PNTokens,count, Prop)
+```
+
+```{r}
+TextSource <- rep("Fics", 10)
+
+PNTokens <- c("he","i","his","you","it","her","she","him","my","me")
+
+count <- c(8429,8386,5922,4625,4477,3540,2632,2456,2295,1875)
+
+Prop <- c(0.02102,0.02091,0.01477,0.01153,0.01116,0.00883,0.00656,0.00612,0.00572,0.00467)
+
+Fics_PNTokens = data.frame(TextSource, PNTokens,count, Prop)
+```
+
+```{r}
+pnTkns <- rbind(Books_PNTokens, Fics_PNTokens, Blogs_PNTokens)
+```
+
+
+## Adjectives
+
+
+```{r}
+TextSource <- rep("Books", 10)
+
+AdjTokens <- c("other", "little", "such", "old","own","good","great","last","more","much")
+
+count <- c(1373,1304,1104,1062,935,853,806,739,695,667)
+
+Prop <- c(0.00168,0.00160,0.00135,0.00130,0.00114,0.00104,0.00099, 0.000907,0.00085,0.00082)
+
+Books_AdjTokens = data.frame(TextSource, AdjTokens, count, Prop)
+```
+
+```{r}
+TextSource <- rep("Blogs", 10)
+
+AdjTokens <- c("other", "good", "more", "same","many","much","new","great","most","different")
+
+count <- c(8690,8378,7726,5658,5370,4939,4884,4337,4157,3697)
+
+Prop <- c(0.00189,0.00183,0.00168,0.00123,0.00117,0.00108,0.00107, 0.00095,0.00091,0.00081)
+
+Blogs_AdjTokens = data.frame(TextSource, AdjTokens, count, Prop)
+```
+
+```{r}
+TextSource <- rep("Fics", 10)
+
+AdjTokens <- c("other", "more", "good", "little","much","sure","few","first","own","next")
+
+count <- c(465,447,415,381,380,337,326,309,273,262)
+
+Prop <- c(0.00116,0.00111,0.00103,0.00095,0.00095,0.00084,0.00081, 0.00077,0.00068,0.00065)
+
+Fics_AdjTokens = data.frame(TextSource, AdjTokens, count, Prop)
+```
+
+```{r}
+adjTkns <- rbind(Books_AdjTokens, Fics_AdjTokens, Blogs_AdjTokens)
+```
+
+
+## Worclouds
+
+```{r}
+library(tidyverse)
+library(ggwordcloud)
+```
+
+
+### Pronouns
+
+```{r}
+pnTkns <- pnTkns %>%
+  group_by(TextSource) %>%
+  mutate(propPlot = count / max(count)) %>%
+  ungroup()
+```
+
+```{r, fig.height=10, fig.width=15}
+set.seed(79)
+ggplot(pnTkns, aes(label = PNTokens, size = propPlot, color = TextSource, stroke = 'black')) +
+    geom_text_wordcloud_area(rm_outside = FALSE) +
+    scale_color_manual(values=c('#ec9d82', '#557b83', '#99ddff')) +
+    scale_size_area(max_size =30) +
+    theme_minimal() + facet_wrap(~TextSource, ncol = 3)
+```
+
+### Adjectives
+
+```{r}
+adjTkns <- adjTkns %>%
+  group_by(TextSource) %>%
+  mutate(propPlot = count / max(count)) %>%
+  ungroup()
+```
+
+```{r, fig.height=10, fig.width=15}
+set.seed(79)
+ggplot(adjTkns, aes(label = AdjTokens, size = propPlot, color = TextSource, stroke = 'black')) +
+    #geom_text_wordcloud_area(rm_outside = FALSE) +
+    scale_color_manual(values=c('#ec9d82', '#557b83', '#99ddff')) +
+    scale_size_area(max_size =15) +
+    theme_minimal() + facet_wrap(~TextSource, ncol = 3)
+```
+
+# Nouns
+
+```{r, fig.width=10,fig.height=11}
+
+library(tidyverse)
+library(ggwordcloud)
+
+TextSource <- rep("Books", 10)
+
+nTokens <- c('man', 'time', 'mr.', 'whale', 'way',
+               'hand', 'day', 'eyes', 'life', 'nothing')
+
+count <- c(1687,1204,1087,905,803,
+           786,752,740,703,669)
+
+Prop <- c(0.00207,0.00147,0.00133,0.00111,0.00108,
+          0.00104,0.00099, 0.000907,0.00085,0.00082)
+
+Books_nTokens = data.frame(TextSource, nTokens, count, Prop)
+
+################################################################
+
+TextSource <- rep("Blogs", 10)
+
+nTokens <- c('t', 'time', 'people', 'day', 'today',
+             'way', 'things', 'life', 'something', 'night')
+
+count <- c(31439,26806,20437,18865,16476,
+           13466,12981,12406,11912,11615)
+
+Prop <- c(0.00685,0.00584,0.00445,0.00411,0.00359,
+          0.00293,0.00283,0.00270,0.00259,0.00253)
+
+Blogs_nTokens = data.frame(TextSource, nTokens, count, Prop)
+
+################################################################
+
+TextSource <- rep("Fics", 10)
+
+AdjTokens <- c('harry','time','eyes','head','jon',
+               'hand','something','way','face','room')
+
+count <- c(465,447,415,381,380,
+           337,326,309,273,262)
+
+Prop <- c(0.00188,0.00185,0.00182,0.00156,0.00139,
+          0.00129,0.00126, 0.00122,0.00105,0.00099)
+
+Fics_nTokens = data.frame(TextSource, nTokens, count, Prop)
+
+nTkns <- rbind(Books_nTokens, Fics_nTokens, Blogs_nTokens)
+
+set.seed(1)
+
+nTkns <- nTkns %>%
+  group_by(TextSource) %>%
+  mutate(propPlot = count / max(count)) %>%
+  ungroup()
+
+ggplot(nTkns, aes(label = nTokens, size = propPlot, color = TextSource, stroke = 'black')) +
+    geom_text_wordcloud_area(rm_outside = FALSE) +
+    scale_color_manual(values=c('#ec9d82', '#557b83', '#99ddff')) +
+    scale_size_area(max_size =20) +
+    theme_minimal() + facet_wrap(~TextSource, ncol = 3)
+```
+
